@@ -12,27 +12,32 @@ export default class Convertapi {
 
     param(name, value) {
         return {
-            name: name,
-            value: value
+            Name: name,
+            Value: value
         }
     }
 
-    fileParam(parameterName, file) {
-        let uploadsPro = [file].flat().map(f =>
-            fetch(`https://${this.host}/upload`, { method: 'POST', body: f }))
-                .map(respPro => respPro.then(resp => resp.json()).then(obj => ({ id: obj.FileId }))
+    fileParam(parameterName, files) {
+        if (files instanceof FileList) files = Array.from(files)
+        let uploadsPro = [files].flat().map(f =>
+            fetch(`https://${this.host}/upload?filename=${f.name}`, { method: 'POST', body: f }))
+                .map(respPro => respPro.then(resp => resp.json()).then(obj => ({ Id: obj.FileId }))
         )
 
         return Promise.all(uploadsPro).then(ids => this.newFileParameter(parameterName, ids))
     }
 
     convert(fromFormat, toFormat, paramsPro) {
-        let auth = secret ? `secret=${this.secret}` : `apikey=${this.apiKey}&token=${this.token}`
-        return Promise.resolve(paramsPro).then(function(p) {
-            let body = JSON.stringify({ parameters: p })
-            return fetch(`https://${this.host}/convert/${fromFormat}/to/${toFormat}?${auth}&storefile=true`, { method: 'POST', body: body })
-                .json()
-        })
+        // Parameters can be promises that must be resolved
+        return Promise.resolve(paramsPro)
+            .then(params => params.map(p => Promise.resolve(p)))
+            .then(pp => Promise.all(pp))
+            .then(p => {
+                let auth = this.secret ? `secret=${this.secret}` : `apikey=${this.apiKey}&token=${this.token}`
+                let body = JSON.stringify({ Parameters: p })
+                return fetch(`https://${this.host}/convert/${fromFormat}/to/${toFormat}?${auth}&storefile=true`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: body })
+                    .then(resp => resp.json())
+            })
     }
 
     resultParam(parameterName, resultPro) {
@@ -42,12 +47,12 @@ export default class Convertapi {
     }
 
     newFileParameter(parameterName, valObjs) {
-        let parameter = { name: parameterName }
+        let parameter = { Name: parameterName }
         let valObjsArr = valObjs.flat()
         if (valObjsArr.length > 1) {
-            parameter['fileValues'] = valObjsArr
+            parameter['FileValues'] = valObjsArr
         } else {
-            parameter['fileValue'] = valObjsArr[0]
+            parameter['FileValue'] = valObjsArr[0]
         }
         return parameter
     }
