@@ -1,13 +1,7 @@
 export default class Convertapi {
-    host = 'v2.convertapi.com'
-    apiKey
-    token
-    secret
-
-    constructor(credentials) {
-        this.apiKey = credentials.apiKey
-        this.token = credentials.token
-        this.secret = credentials.secret
+    constructor(credentials, host='v2.convertapi.com') {
+        this._credentials = credentials
+        this._host = host
     }
 
     param(name, value) {
@@ -20,11 +14,11 @@ export default class Convertapi {
     fileParam(parameterName, files) {
         if (files instanceof FileList) files = Array.from(files)
         let uploadsPro = [files].flat().map(f =>
-            fetch(`https://${this.host}/upload?filename=${f.name}`, { method: 'POST', body: f }))
+            fetch(`https://${this._host}/upload?filename=${f.name}`, { method: 'POST', body: f }))
                 .map(respPro => respPro.then(resp => resp.json()).then(obj => ({ Id: obj.FileId }))
         )
 
-        return Promise.all(uploadsPro).then(ids => this.newFileParameter(parameterName, ids))
+        return Promise.all(uploadsPro).then(ids => this._newFileParameter(parameterName, ids))
     }
 
     convert(fromFormat, toFormat, paramsPro) {
@@ -33,9 +27,9 @@ export default class Convertapi {
             .then(params => params.map(p => Promise.resolve(p)))
             .then(pp => Promise.all(pp))
             .then(p => {
-                let auth = this.secret ? `secret=${this.secret}` : `apikey=${this.apiKey}&token=${this.token}`
+                let auth = this._credentials.secret ? `secret=${this._credentials.secret}` : `apikey=${this._credentials.apiKey}&token=${this._credentials.token}`
                 let body = JSON.stringify({ Parameters: p })
-                return fetch(`https://${this.host}/convert/${fromFormat}/to/${toFormat}?${auth}&storefile=true`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: body })
+                return fetch(`https://${this._host}/convert/${fromFormat}/to/${toFormat}?${auth}&storefile=true`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: body })
                     .then(resp => resp.json())
             })
     }
@@ -43,10 +37,10 @@ export default class Convertapi {
     resultParam(parameterName, resultPro) {
         return Promise.resolve(resultPro)
             .then(resObj => resObj.Files.map(f => ({ id: f.FileId })) )
-            .then(ids => this.newFileParameter(parameterName, ids))
+            .then(ids => this._newFileParameter(parameterName, ids))
     }
 
-    newFileParameter(parameterName, valObjs) {
+    _newFileParameter(parameterName, valObjs) {
         let parameter = { Name: parameterName }
         let valObjsArr = valObjs.flat()
         if (valObjsArr.length > 1) {
