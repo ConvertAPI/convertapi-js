@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "ES2015",
+    "moduleResolution": "Node",
+    "allowJs": false,
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "allowUnreachableCode": false,
+    "skipLibCheck" : true,
+    "strict": true,
+    "outDir": "./lib",
+    "rootDir": "./src",
+    "declaration": true,
+    "declarationDir": "./types",
+    "declarationMap": true
+  },
+
+  "include": [
+    "./src"
+  ],
+
+  "exclude": [
+    "./lib",
+    "./node_modules",
+    "./src/**/*.spec.ts"
+  ]
+}

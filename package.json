@@ -1,0 +1,38 @@
+{
+  "name": "convertapi-js",
+  "version": "0.0.3",
+  "description": "ConvertApi JavaScript and TypeScript library",
+  "main": "./lib/convertapi.js",
+  "types": "./types/convertapi.d.ts",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "typescript": "^3.8.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "lib",
+    "types"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "build:check": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ConvertAPI/convertapi-js"
+  },
+  "keywords": [
+    "convertapi",
+    "file",
+    "conversion"
+  ],
+  "author": "Baltsoft",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ConvertAPI/convertapi-js/issues"
+  },
+  "homepage": "https://github.com/ConvertAPI/convertapi-js"
+}

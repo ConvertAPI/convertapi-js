@@ -1,8 +1,14 @@
-export default class Convertapi {
-    constructor(credentials, host='v2.convertapi.com') {
-        this._credentials = credentials
-        this._host = host
-    }
+interface Credentials {
+    secret: string
+    apiKey:  string
+    token: string
+}
+
+export default class ConvertApi {
+    constructor(
+        public readonly credentials: Credentials,
+        public readonly host: string='v2.convertapi.com'
+    ) {}
 
     param(name, value) {
         return {
