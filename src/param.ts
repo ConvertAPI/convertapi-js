@@ -13,23 +13,20 @@ interface ConvertDto {
     Parameters: ParamDto[]
 }
 
-export default class Param {
+export interface IParam {
+    dto(): Promise<ParamDto>
+}
+
+export default class Param implements IParam{
     constructor(
         public readonly name: string,
-        private readonly _value?: string | Promise<string>,
+        public readonly value: string,
     ) {}
 
-    public get value(): Promise<string> | undefined {
-        if (typeof this._value === 'undefined') {
-            return undefined
-        }
-        return Promise.resolve(this._value)
-    }
-
-    public get dto(): Promise<ParamDto> | undefined {
-        return this.value?.then( v => (<ParamDto> {
+    public dto(): Promise<ParamDto> {
+        return Promise.resolve(<ParamDto> {
             Name: this.name,
-            Value: v
-        }))
+            Value: this.value
+        })
     }
 }

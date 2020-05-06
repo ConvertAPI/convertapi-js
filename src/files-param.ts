@@ -1,11 +1,14 @@
-import Param, {FileValue, ParamDto} from "./param";
+import {FileValue, IParam, ParamDto} from "./param";
 import FileParam from "./file-param";
 
-export default class FilesParam extends Param {
-    private readonly files: Param[]
+export default class FilesParam implements IParam {
+    private files: FileValue[] = []
 
-    constructor(name: string, files: string[] | FileList, host: string) {
-        super(name);
+    constructor(
+        private readonly name: string,
+        private readonly files: string[] | FileList,
+        private readonly host: string
+    ) {
         if (files instanceof FileList) {
             this.files = Array.from(files).map(f => new FileParam(name, f, host))
         } else {

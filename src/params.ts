@@ -1,18 +1,17 @@
-import Param, {ParamValue} from "./param";
+import Param from "./param";
 
 export default class Params {
     private readonly params: Param[] = []
 
-    constructor() {
-    }
+    constructor(
+        private readonly host: string
+    ) {}
 
-    public add(name: string, value: ParamValue): Param {
-        let param = new Param(name, value)
-        this.params.push(param)
-        return param
-    }
+    public add(name: string, value: string | File | FileList | string[] | Promise<string | File | FileList | string[]> ): Param {
+        Promise.resolve(value).then(v => {
 
-    public addFile(name: string, value: ParamValue): Param {
+        })
+
         let param = new Param(name, value)
         this.params.push(param)
         return param
