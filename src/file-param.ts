@@ -1,4 +1,4 @@
-import Param, {FileValue, IParam, ParamDto} from "./param";
+import {IFileValue, IParam, IParamDto} from "./param";
 
 interface UploadResponseDto {
     FileId: string
@@ -6,25 +6,30 @@ interface UploadResponseDto {
     FileExt: string
 }
 
+export class FileValue {
+    constructor(
+        public readonly name: string,
+        public readonly fileId: string
+    ) {}
+}
+
 export default class FileParam implements IParam {
     constructor(
         public readonly name: string,
-        public readonly file: File,
+        public readonly file: File | FileValue,
         public readonly host: string
     ) {}
 
     public value(): Promise<string> {
-        return fetch(`https://${this.host}/upload?filename=${this.file.name}`, { method: 'POST', body: this.file })
+        return fetch(`https://${this.host}/upload?filename=${this.file.name}`, <RequestInit>{ method: 'POST', body: this.file })
             .then(r => <Promise<UploadResponseDto>>r.json())
             .then(obj => obj.FileId)
     }
 
-    public dto(): Promise<ParamDto> {
-        return this.value().then( v => (<ParamDto> {
+    public get dto(): Promise<IParamDto> {
+        return this.value().then( v => <IParamDto>{
             Name: this.name,
-            FileValue: <FileValue> {
-                Id: v
-            }
-        }))
+            FileValue: <IFileValue>{ Id: v }
+        })
     }
 }

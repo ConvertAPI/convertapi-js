@@ -1,28 +1,36 @@
-import {FileValue, IParam, ParamDto} from "./param";
-import FileParam from "./file-param";
+import FileParam, {FileValue} from "./file-param";
+import {IResultFileDto} from "./result";
+import {IFileValue, IParam, IParamDto} from "./param";
+
+export class FilesValue {
+    constructor(
+        private readonly files: IResultFileDto[]
+    ) {}
+
+    public asArray(): FileValue[] {
+        return this.files.map(f => new FileValue(f.FileName, f.FileId))
+    }
+}
 
 export default class FilesParam implements IParam {
-    private files: FileValue[] = []
+    private fileIdPros: Promise<string>[] = []
 
     constructor(
         private readonly name: string,
-        private readonly files: string[] | FileList,
-        private readonly host: string
+        files: FileList | FilesValue,
+        host: string
     ) {
         if (files instanceof FileList) {
-            this.files = Array.from(files).map(f => new FileParam(name, f, host))
+            this.fileIdPros = Array.from(files).map(f => new FileParam(name, f, host).value())
         } else {
-            this.files = files.map(f => new Param(name, f))
+            this.fileIdPros = files.asArray().map(f => Promise.resolve(f.fileId))
         }
     }
 
-    public get dto(): Promise<ParamDto> | undefined{
-        let fileValPro = this.files.map(f => f.value)
-        return Promise.all(fileValPro).then(fvs => (<ParamDto> {
+    public get dto(): Promise<IParamDto> {
+        return Promise.all(this.fileIdPros).then(fids => <IParamDto> {
             Name: this.name,
-            FileValues: fvs.map(fv => <FileValue> {
-                Id: fv
-            })
-        }))
+            FileValues: fids.map(fid => <IFileValue> { Id: fid })
+        })
     }
 }

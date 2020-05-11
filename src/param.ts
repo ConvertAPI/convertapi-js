@@ -1,20 +1,24 @@
-export interface FileValue {
+export interface IFileValue {
     Id: string
 }
 
-export interface ParamDto {
+export interface IParamDto {
     Name: string
     Value: string
-    FileValue: FileValue
-    FileValues: FileValue[]
+    FileValue: IFileValue
+    FileValues: IFileValue[]
 }
 
-interface ConvertDto {
-    Parameters: ParamDto[]
+export interface IConvertDto {
+    Parameters: IParamDto[]
 }
 
 export interface IParam {
-    dto(): Promise<ParamDto>
+    dto: Promise<IParamDto>
+}
+
+export interface IParams {
+    dto: Promise<IConvertDto>
 }
 
 export default class Param implements IParam{
@@ -23,8 +27,8 @@ export default class Param implements IParam{
         public readonly value: string,
     ) {}
 
-    public dto(): Promise<ParamDto> {
-        return Promise.resolve(<ParamDto> {
+    public get dto(): Promise<IParamDto> {
+        return Promise.resolve(<IParamDto> {
             Name: this.name,
             Value: this.value
         })
