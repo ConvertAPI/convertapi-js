@@ -15,14 +15,17 @@ namespace ConvertApi {
     export class FileParam implements IParam {
         constructor(
             public readonly name: string,
-            public readonly file: File | FileValue,
+            public readonly file: File | FileValue | URL,
             public readonly host: string
         ) {}
     
         public value(): Promise<string> {
-            return fetch(`https://${this.host}/upload?filename=${this.file.name}`, <RequestInit>{ method: 'POST', body: this.file })
-                .then(r => <Promise<UploadResponseDto>>r.json())
-                .then(obj => obj.FileId)
+            let uploadUrl = `https://${this.host}/upload?`
+            let response = this.file instanceof URL 
+                ? fetch(`${uploadUrl}url=${this.file.href}`, <RequestInit>{ method: 'POST' })
+                : fetch(`${uploadUrl}filename=${this.file.name}`, <RequestInit>{ method: 'POST', body: this.file })
+            
+            return response.then(r => <Promise<UploadResponseDto>>r.json()).then(obj => obj.FileId)
         }
     
         public get dto(): Promise<IParamDto> {

@@ -6,11 +6,11 @@ namespace ConvertApi {
             private readonly host: string
         ) {}
 
-        public add(name: string, value: string | File | FileValue | FileList | FilesValue): IParam {
+        public add(name: string, value: string | File | FileValue | URL | FileList | FilesValue): IParam {
             let param: IParam
             if (value instanceof FilesValue || value instanceof FileList) {
                 param = new FilesParam(name, value, this.host)
-            } else if (value instanceof FileValue || value instanceof File) {
+            } else if (value instanceof FileValue || value instanceof File || value instanceof URL) {
                 param = new FileParam(name, value, this.host)
             } else {
                 param = new Param(name, value)
