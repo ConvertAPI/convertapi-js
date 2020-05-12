@@ -1,6 +1,6 @@
-import FileParam, {FileValue} from "./file-param";
-import {IResultFileDto} from "./result";
-import {IFileValue, IParam, IParamDto} from "./param";
+import FileParam, {FileValue} from "./file-param.js"
+import {IResultFileDto} from "./result.js"
+import {IFileValue, IParam, IParamDto} from "./param.js"
 
 export class FilesValue {
     constructor(
@@ -16,7 +16,7 @@ export default class FilesParam implements IParam {
     private fileIdPros: Promise<string>[] = []
 
     constructor(
-        private readonly name: string,
+        public readonly name: string,
         files: FileList | FilesValue,
         host: string
     ) {

@@ -14,6 +14,7 @@ export interface IConvertDto {
 }
 
 export interface IParam {
+    name: string
     dto: Promise<IParamDto>
 }
 

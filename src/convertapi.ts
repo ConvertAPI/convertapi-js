@@ -1,6 +1,6 @@
-import Params from "./params";
-import {IParams} from "./param";
-import Result from "./result";
+import Params from "./params.js"
+import {IParams} from "./param.js"
+import Result from "./result.js"
 
 export interface Credentials {
     secret: string

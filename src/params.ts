@@ -1,32 +1,39 @@
-import Param, {IConvertDto, IParam} from "./param";
-import FilesParam, {FilesValue} from "./files-param";
-import FileParam, {FileValue} from "./file-param";
+import Param, {IConvertDto, IParam} from "./param.js"
+import FilesParam, {FilesValue} from "./files-param.js"
+import FileParam, {FileValue} from "./file-param.js"
 
 export default class Params {
-    private readonly paramPros: Promise<IParam>[] = []
+    private readonly params: IParam[] = []
 
     constructor(
         private readonly host: string
     ) {}
 
-    public add(name: string, value: string | File | FileValue | FileList | FilesValue | Promise<string | File | FileValue | FileList | FilesValue> ): Promise<IParam> {
-        let paramPro = Promise.resolve(value).then(v => {
-            if (v instanceof FilesValue || v instanceof FileList) {
-                return new FilesParam(name, v, this.host)
-            } else if (v instanceof FileValue || v instanceof File) {
-                return new FileParam(name, v, this.host)
-            } 
-            return new Param(name, v)
-        })
+    public add(name: string, value: string | File | FileValue | FileList | FilesValue): IParam {
+        let param: IParam
+        if (value instanceof FilesValue || value instanceof FileList) {
+            param = new FilesParam(name, value, this.host)
+        } else if (value instanceof FileValue || value instanceof File) {
+            param = new FileParam(name, value, this.host)
+        } else {
+            param = new Param(name, value)
+        }
 
-        this.paramPros.push(paramPro)
-        return paramPro
+        this.params.push(param)
+        return param
+    }
+
+    public get(name: string): IParam | undefined {
+        return this.params.find(p => p.name === name)
+    }
+
+    public delete(name: string): IParam | undefined {
+        let idx = this.params.findIndex(p => p.name === name)
+        return this.params.splice(idx, 1)[0]
     }
     
     public get dto(): Promise<IConvertDto> {
-        return Promise.all(this.paramPros)
-            .then(ps => ps.map(p => p.dto))
-            .then(dsp => Promise.all(dsp))
-            .then(ds => <IConvertDto>{ Parameters: ds })
+        let dtoPros = this.params.map(p => p.dto)
+        return Promise.all(dtoPros).then(ds => <IConvertDto>{ Parameters: ds })
     }
 }

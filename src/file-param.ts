@@ -1,4 +1,4 @@
-import {IFileValue, IParam, IParamDto} from "./param";
+import {IFileValue, IParam, IParamDto} from "./param.js"
 
 interface UploadResponseDto {
     FileId: string
