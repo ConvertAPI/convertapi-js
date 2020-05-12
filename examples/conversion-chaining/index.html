@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Conversion Chaining Example</title>
-    <script src="index.js" type="module"></script>
+    <script src="../../lib/convertapi.js"></script>
 </head>
 <body>
-    <h1>Conversion Chaining Example</h1>
-    <label for="fileImput">Select DOCX file</label>
-    <input id="fileImput" name="pdf_file" type="file" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+    <h1>ConvertAPI JavaScript library example</h1>
+    <h2>Conversion Chaining Example</h2>
+    <p>
+        <label for="fileImput">Select PDF file to split it and zip the result files</label>
+        <input id="fileImput" name="pdf_file" type="file" accept="application/pdf">
+    </p>
+    <p id="result">
+        Result file:
+        <a id="resultLink" href=""></a>
+    </p>
+    <script src="index.js"></script>
 </body>
 </html>

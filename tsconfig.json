@@ -1,9 +1,9 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "target": "es2015",
-    "module": "es2015",
-    "moduleResolution": "node",
+    "target": "ES2015",
+    "module": "None",
+    "moduleResolution": "Node",
     "allowJs": false,
 
     "noImplicitAny": false,
@@ -21,8 +21,7 @@
     "strict": true,
     "declaration": true,
     "declarationMap": true,
-    "declarationDir": "./types",
-    "outDir": "./lib"
+    "outFile": "./lib/convertapi.js"
   },
   
   "include": [
