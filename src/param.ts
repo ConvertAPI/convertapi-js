@@ -24,6 +24,12 @@ namespace ConvertApi {
     }
 
     export class Param implements IParam {
+        /**
+         * String type conversion parameter class.
+         * 
+         * @param name - parameter name.
+         * @param value - parameter value.
+         */
         constructor(
             public readonly name: string,
             public readonly value: string,

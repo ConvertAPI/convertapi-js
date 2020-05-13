@@ -13,6 +13,13 @@ namespace ConvertApi {
     }
     
     export class FileParam implements IParam {
+        /**
+         * Single file conversion parameter class.
+         * 
+         * @param name - parameter name.
+         * @param file - value.
+         * @param host - ConvertApi server domain.
+         */
         constructor(
             public readonly name: string,
             public readonly file: File | FileValue | URL,

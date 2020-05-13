@@ -1,6 +1,6 @@
 {
   "name": "convertapi-js",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "ConvertApi JavaScript and TypeScript library",
   "main": "./lib/convertapi.js",
   "dependencies": {
