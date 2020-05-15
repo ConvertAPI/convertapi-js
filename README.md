@@ -46,7 +46,7 @@ let url = result.files[0].Url
 
 ```js
 let params = convertApi.createParams()
-params.add('file', new URL('https://cdn.convertapi.com/cara/testfiles/presentation.pptx'))
+params.add('file', new URL('https://cdn.convertapi.com/test-files/presentation.pptx'))
 let result = await convertApi.convert('pptx', 'pdf', params)
 
 // Get result file URL
