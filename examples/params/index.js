@@ -1,22 +1,25 @@
 // ConvertAPI JavaScript library example
-// Example demonstrates how to convert web page using ConvertAPI JavaScript library
+// Example demonstrates how to convert file using ConvertAPI JavaScript library
 
 let convertApi = ConvertApi.auth({secret: '<YOUR_SECRET>'})
 let elResult = document.getElementById('result')
 let elResultLink = document.getElementById('resultLink')
-let elUrl = document.getElementById('urlInput')
 elResult.style.display = 'none'
 
 // On file input change, start conversion
-document.getElementById('convertBtn').addEventListener('click', async e => {
+document.getElementById('fileInput').addEventListener('change', async e => {
     elResult.style.display = 'none'
     document.documentElement.style.cursor = 'wait'
     try {
 
-        // Converting web page to PDF file
+        // Converting PDF to JPG file
         let params = convertApi.createParams()
-        params.add('url', elUrl.value)
-        let result = await convertApi.convert('web', 'pdf', params)
+        params.add('file', e.currentTarget.files[0])
+        params.add('ScaleImage', 'true')
+        params.add('ScaleProportions', 'true')
+        params.add('ImageHeight', '300')
+        params.add('ImageWidth', '300')
+        let result = await convertApi.convert('pdf', 'jpg', params)
 
         // Showing link with the result file
         elResultLink.setAttribute('href', result.files[0].Url)

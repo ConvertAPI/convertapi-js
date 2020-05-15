@@ -1,5 +1,5 @@
 // ConvertAPI JavaScript library example
-// Example demonstrates how to chain conversions using ConvertAPI JavaScript library
+// Example demonstrates how to convert file using ConvertAPI JavaScript library
 
 let convertApi = ConvertApi.auth({secret: '<YOUR_SECRET>'})
 let elResult = document.getElementById('result')
