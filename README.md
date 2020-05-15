@@ -2,7 +2,7 @@
 ## Convert your files with our online file conversion API
 
 The ConvertAPI helps converting various file formats.
-Creating PDF and Images from various sources like Word, Excel, Powerpoint, images, web pages or raw HTML codes.
+Creating PDF and Images from various sources like Word, Excel, Powerpoint, images, web pages.
 Merge, Encrypt, Split, Repair and Decrypt PDF files.
 And many others files manipulations.
 In just few minutes you can integrate it into your application and use it easily.
