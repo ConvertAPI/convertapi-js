@@ -19,9 +19,9 @@ namespace ConvertApi {
          * @param name - parameter name. All conversion parameters and valid parameter values can be found at {@link https://www.convertapi.com/conversions | convertapi.com} site.
          * @param value - parameter value.
          */
-        public add(name: string, value: string | File | FileValue | URL | FileList | FilesValue): IParam {
+        public add(name: string, value: string | string[] | File | FileValue | URL | FileList | FilesValue): IParam {
             let param: IParam
-            if (value instanceof FilesValue || value instanceof FileList) {
+            if (value instanceof FilesValue || value instanceof FileList || value instanceof Array) {
                 param = new FilesParam(name, value, this.host)
             } else if (value instanceof FileValue || value instanceof File || value instanceof URL) {
                 param = new FileParam(name, value, this.host)

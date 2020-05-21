@@ -10,24 +10,30 @@ namespace ConvertApi {
     }
     
     export class FilesParam implements IParam {
-        private fileIdPros: Promise<string>[] = []
+        private fileValPros: Promise<IFileValue>[] = []
     
         constructor(
             public readonly name: string,
-            files: FileList | FilesValue,
+            files: string[] | FileList | FilesValue,
             host: string
         ) {
             if (files instanceof FileList) {
-                this.fileIdPros = Array.from(files).map(f => new FileParam(name, f, host).value())
+                this.fileValPros = Array.from(files).map(f => new FileParam(name, f, host).value().then(i => (<IFileValue>{
+                    Id: i
+                })))
+            } else if (files instanceof FilesValue) {
+                this.fileValPros = files.asArray().map(f => Promise.resolve((<IFileValue>{
+                    Id: f.fileId
+                })))
             } else {
-                this.fileIdPros = files.asArray().map(f => Promise.resolve(f.fileId))
+                this.fileValPros = files.map(f => Promise.resolve(f.startsWith('http') ? <IFileValue>{Url: f} : <IFileValue>{Id: f}))                
             }
         }
     
         public get dto(): Promise<IParamDto> {
-            return Promise.all(this.fileIdPros).then(fids => <IParamDto> {
+            return Promise.all(this.fileValPros).then(fv => <IParamDto>{
                 Name: this.name,
-                FileValues: fids.map(fid => <IFileValue> { Id: fid })
+                FileValues: fv
             })
         }
     }

@@ -4,9 +4,9 @@
     "target": "ES2015",
     "module": "None",
     "moduleResolution": "Node",
-    "allowJs": false,
 
-    "noImplicitAny": false,
+    "strict": true,
+    "noEmitOnError": true,
     "noImplicitReturns": true,
     "noUnusedParameters": true,
     "noImplicitThis": true,
@@ -14,11 +14,8 @@
     "noUnusedLocals": true,
     "strictNullChecks": true,
 
-    "noEmitOnError": true,
     "removeComments": true,
     "sourceMap": true,
-    "allowUnreachableCode": false,
-    "strict": true,
     "declaration": true,
     "declarationMap": true,
     "outFile": "./lib/convertapi.js"

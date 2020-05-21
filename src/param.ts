@@ -1,6 +1,7 @@
 namespace ConvertApi {
     export interface IFileValue {
         Id: string
+        Url: string
     }
 
     export interface IParamDto {
