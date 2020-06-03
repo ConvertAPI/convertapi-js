@@ -14,7 +14,7 @@ namespace ConvertApi {
     
         constructor(
             public readonly name: string,
-            files: string[] | FileList | FilesValue,
+            files: string[] | URL[] | FileList | FilesValue,
             host: string
         ) {
             if (files instanceof FileList) {
@@ -26,7 +26,9 @@ namespace ConvertApi {
                     Id: f.fileId
                 })))
             } else {
-                this.fileValPros = files.map(f => Promise.resolve(f.startsWith('http') ? <IFileValue>{Url: f} : <IFileValue>{Id: f}))                
+                this.fileValPros = (files as Array<string|URL>).map(f => 
+                    Promise.resolve(f instanceof URL ? <IFileValue>{Url: f.href} : <IFileValue>{Id: f})
+                )
             }
         }
     

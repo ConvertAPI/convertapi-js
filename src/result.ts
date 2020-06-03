@@ -57,5 +57,31 @@ namespace ConvertApi {
         public toParamFiles(): FilesValue {
             return new FilesValue(this.dto.Files)
         }
+
+        /**
+         * Uploads result file(s) to AWS S3
+         */
+        public uploadToS3(region: string, bucket: string, accessKeyId: string, secretAccessKey: string): Promise<Response>[] {
+            return this.dto.Files.map(f => {
+                let dto = {
+                    // TODO: fileServerUrl: params.get('fileServerUrl'),
+                    region: region,
+                    bucket: bucket,
+                    accessKeyId: accessKeyId,
+                    secretAccessKey: secretAccessKey,
+                    fileId: f.FileId
+                }
+                
+                console.log(dto)
+                
+                return fetch(`https://integration.convertapi.com/s3/upload`, {
+                    method: 'POST',
+                    headers: { 'content-type': 'application/json' },
+                    body: JSON.stringify(dto)
+                })
+            })
+            
+        }
+        
     }
 }

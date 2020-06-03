@@ -37,13 +37,15 @@ namespace ConvertApi {
          * @param fromFormat - Source file format (e.g. `docx`, `pdf`, ...)
          * @param toFormat - Destination file format (e.g. `pdf`, `jpg`, ...)
          * @param params - Conversion parameter object
+         * @param converter - Alternative converter name
          * @returns - Promise that will resolve to `Result` object.
          */
-        public convert(fromFormat: string, toFormat: string, params: IParams): Promise<Result> {
+        public convert(fromFormat: string, toFormat: string, params: IParams, converter?: string): Promise<Result> {
             return Promise.resolve(params.dto)
                 .then(dto => {
                     let auth = this.credentials.secret ? `secret=${this.credentials.secret}` : `apikey=${this.credentials.apiKey}&token=${this.credentials.token}`
-                    return fetch(`https://${this.host}/convert/${fromFormat}/to/${toFormat}?${auth}&storefile=true`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(dto) })
+                    let converterPath = converter ? `/converter/${converter}` : ''
+                    return fetch(`https://${this.host}/convert/${fromFormat}/to/${toFormat}${converterPath}?${auth}&storefile=true`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(dto) })
                         .then(resp => resp.json())
                         .then(dto => new Result(dto))
                 })
