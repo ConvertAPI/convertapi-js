@@ -59,7 +59,12 @@ namespace ConvertApi {
         }
 
         /**
-         * Uploads result file(s) to AWS S3
+         * Uploads file to AWS S3
+         * @param region - AWS Region
+         * @param bucket - S3 Bucket name
+         * @param accessKeyId - AWS Access Key ID
+         * @param secretAccessKey - AWS Access Key Secret
+         * @returns - Array of promises that resolves to S3 PUT request responses
          */
         public uploadToS3(region: string, bucket: string, accessKeyId: string, secretAccessKey: string): Promise<Response>[] {
             return this.dto.Files.map(f => {
@@ -72,16 +77,12 @@ namespace ConvertApi {
                     fileId: f.FileId
                 }
                 
-                console.log(dto)
-                
                 return fetch(`https://integration.convertapi.com/s3/upload`, {
                     method: 'POST',
                     headers: { 'content-type': 'application/json' },
                     body: JSON.stringify(dto)
                 })
             })
-            
         }
-        
     }
 }
