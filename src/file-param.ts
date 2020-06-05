@@ -27,12 +27,15 @@ namespace ConvertApi {
         ) {}
     
         public value(): Promise<string> {
-            let uploadUrl = `https://${this.host}/upload?`
-            let response = this.file instanceof URL 
-                ? fetch(`${uploadUrl}url=${this.file.href}`, <RequestInit>{ method: 'POST' })
-                : fetch(`${uploadUrl}filename=${this.file.name}`, <RequestInit>{ method: 'POST', body: this.file })
-            
-            return response.then(r => <Promise<UploadResponseDto>>r.json()).then(obj => obj.FileId)
+            if (this.file instanceof FileValue) {
+                return Promise.resolve(this.file.fileId)                
+            } else {
+                let uploadUrl = `https://${this.host}/upload?`
+                let response = this.file instanceof URL
+                    ? fetch(`${uploadUrl}url=${this.file.href}`, <RequestInit>{ method: 'POST' })
+                    : fetch(`${uploadUrl}filename=${this.file.name}`, <RequestInit>{ method: 'POST', body: this.file })
+                return response.then(r => <Promise<UploadResponseDto>>r.json()).then(obj => obj.FileId)
+            }
         }
     
         public get dto(): Promise<IParamDto> {
