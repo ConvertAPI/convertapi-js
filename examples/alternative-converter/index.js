@@ -15,7 +15,8 @@ document.getElementById('fileInput').addEventListener('change', async e => {
         // Converting DOCX to PDF file
         let params = convertApi.createParams()
         params.add('file', e.currentTarget.files[0])
-        let result = await convertApi.convert('docx', 'pdf', params, 'openoffice')
+        params.add('converter', 'openoffice')
+        let result = await convertApi.convert('docx', 'pdf', params)
 
         // Showing link with the result file
         elResultLink.setAttribute('href', result.files[0].Url)
