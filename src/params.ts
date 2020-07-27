@@ -1,4 +1,10 @@
 namespace ConvertApi {
+    export interface IParamInit {
+        name: string
+        value: string | string[]
+        file: boolean
+    }
+
     export class Params {
         private readonly params: IParam[] = []
 
@@ -10,8 +16,11 @@ namespace ConvertApi {
          * Instance of this class should be created using ConvertApi.createParams() method.
          */
         constructor(
-            private readonly host: string
-        ) {}
+            private readonly host: string,
+            init?: IParamInit[]
+        ) {
+            init?.forEach(p => this.add(p.name, p.value))
+        }
 
         /**
          * Adds new parameter to `Parameters` object. Files are also accepted as parameter values.

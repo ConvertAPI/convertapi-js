@@ -6,7 +6,7 @@
   "dependencies": {
   },
   "devDependencies": {
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.7"
   },
   "publishConfig": {
     "access": "public"

@@ -1,5 +1,5 @@
 namespace ConvertApi {
-    interface UploadResponseDto {
+    export interface UploadResponseDto {
         FileId: string
         FileName: string,
         FileExt: string
