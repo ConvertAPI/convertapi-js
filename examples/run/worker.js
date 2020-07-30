@@ -110,7 +110,7 @@ var ConvertApi;
     class FileParam {
         constructor(name, file, host) {
             this.name = name;
-            this.file = file;
+            this.isFile = file;
             this.host = host;
         }
         value() {
