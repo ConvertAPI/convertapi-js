@@ -10,7 +10,10 @@ namespace ConvertApi {
         let paramPros = Object.keys(params).map(k => resolveParam(k, params[k]))
         return Promise.all(paramPros).then(p => fetch(worker.href, {
             method: 'POST',
-            headers: {'content-type': 'application/json;charset=UTF-8'},
+            headers: {
+                'content-type': 'application/json;charset=UTF-8',
+                'convertapi-params': 'true'
+            },
             body: JSON.stringify(p)
         }))
     }
@@ -31,7 +34,7 @@ namespace ConvertApi {
         return valPro.then(v => (<IParamInit>{
             name: name,
             value: v,
-            file: isFile
+            isFile: isFile
         }))
     }
     

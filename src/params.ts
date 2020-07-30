@@ -2,7 +2,7 @@ namespace ConvertApi {
     export interface IParamInit {
         name: string
         value: string | string[]
-        file: boolean
+        isFile: boolean
     }
 
     export class Params {
@@ -19,7 +19,21 @@ namespace ConvertApi {
             private readonly host: string,
             init?: IParamInit[]
         ) {
-            init?.forEach(p => this.add(p.name, p.value))
+            let param: IParam
+            init?.forEach(p => {
+                if (p.isFile) {
+                    if (typeof(p.value) === 'string') {
+                        param = new FileParam(p.name, new FileValue('', p.value), this.host)
+                    } else {
+                        param = p.value instanceof Array
+                            ? new FilesParam(p.name, p.value, this.host)
+                            : param = new FileParam(p.name, p.value, this.host)
+                    }
+                } else {
+                    param = new Param(p.name, <string>p.value)
+                }
+                this.params.push(param)
+            })
         }
 
         /**

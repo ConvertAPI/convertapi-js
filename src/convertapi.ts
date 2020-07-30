@@ -27,8 +27,8 @@ namespace ConvertApi {
          *
          * @returns - New conversion parameter object
          */
-        public createParams(): Params {
-            return new Params(this.host)
+        public createParams(init?: IParamInit[]): Params {
+            return new Params(this.host, init)
         }
 
         /**
