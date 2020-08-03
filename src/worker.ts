@@ -6,8 +6,11 @@ namespace ConvertApi {
      * @param params - Object that represents parameters passed to the worker. Value can be string or file(s).
      * @returns - Worker response object promise
      */
-    export function worker(worker: URL, params: any): Promise<Response> {
-        let paramPros = Object.keys(params).map(k => resolveParam(k, params[k]))
+    export function worker(worker: URL, params: any | HTMLFormElement): Promise<Response> {
+        let paramPros = params instanceof HTMLFormElement
+            ? Array.from(new FormData(params).entries()).map(pair => resolveParam(pair[0], pair[1]))
+            : Object.keys(params).map(k => resolveParam(k, params[k]))
+
         return Promise.all(paramPros).then(p => fetch(worker.href, {
             method: 'POST',
             headers: {
@@ -47,5 +50,5 @@ namespace ConvertApi {
         return fetch(`https://v2.convertapi.com/upload?filename=${f.name}`, { method: 'POST', body: f })
             .then(resp => resp.status === 200 ? <Promise<UploadResponseDto>>resp.json() : Promise.reject(`File ${f.name} upload has failed with the status code ${resp.status}`))
             .then(dto => dto.FileId)
-    }    
+    }
 }
