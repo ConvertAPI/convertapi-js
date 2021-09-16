@@ -1,8 +1,9 @@
 // ConvertAPI JavaScript library example
 // Example demonstrates how to convert file using ConvertAPI JavaScript library
 
-let convertApi = ConvertApi.auth({secret: '<YOUR_SECRET>'})
+ let convertApi = ConvertApi.auth({secret: '<YOUR_SECRET>'})
 let elResult = document.getElementById('result')
+let elCost = document.getElementById('cost')
 let elResultLink = document.getElementById('resultLink')
 elResult.style.display = 'none'
 
@@ -19,6 +20,7 @@ document.getElementById('fileInput').addEventListener('change', async e => {
 
         // Showing link with the result file
         elResultLink.setAttribute('href', result.files[0].Url)
+        elCost.innerText = result.duration
         elResultLink.innerText = result.files[0].Url
         elResult.style.display = 'block'
 

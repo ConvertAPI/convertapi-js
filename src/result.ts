@@ -8,7 +8,7 @@ namespace ConvertApi {
     }
 
     export interface IResultDto {
-        ConversionTime: number,
+        ConversionCost: number,
         Files: IResultFileDto[]
     }
 
@@ -26,7 +26,7 @@ namespace ConvertApi {
          * Returns conversion duration seconds
          */
         public get duration(): number {
-            return this.dto.ConversionTime
+            return this.dto.ConversionCost
         }
 
         /**

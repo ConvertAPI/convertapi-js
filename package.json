@@ -1,22 +1,21 @@
 {
   "name": "convertapi-js",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "ConvertApi JavaScript and TypeScript library",
   "main": "./lib/convertapi.js",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
-    "typescript": "^3.9.7"
+    "typescript": "^4.4.3"
   },
   "publishConfig": {
     "access": "public"
   },
   "files": [
-    "lib", 
+    "lib",
     "src"
   ],
   "scripts": {
-    "prepublish": "tsc"
+    "prepublish": "./node_modules/typescript/bin/tsc"
   },
   "repository": {
     "type": "git",
