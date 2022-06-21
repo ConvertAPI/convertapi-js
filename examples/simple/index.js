@@ -1,7 +1,7 @@
 // ConvertAPI JavaScript library example
 // Example demonstrates how to convert file using ConvertAPI JavaScript library
 
- let convertApi = ConvertApi.auth({secret: '<YOUR_SECRET>'})
+let convertApi = ConvertApi.auth({secret: '<YOUR_SECRET>'})
 let elResult = document.getElementById('result')
 let elCost = document.getElementById('cost')
 let elResultLink = document.getElementById('resultLink')

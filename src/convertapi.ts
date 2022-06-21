@@ -51,7 +51,8 @@ export default class ConvertApi {
                 
                 let auth = this.credentials.secret ? `secret=${this.credentials.secret}` : `apikey=${this.credentials.apiKey}&token=${this.credentials.token}`
                 return fetch(`https://${this.host}/convert/${fromFormat}/to/${toFormat}${converterPath}?${auth}&storefile=true`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(dto) })
-                    .then(resp => resp.json())
+                    .then(r => Promise.all([r.ok, r.json()]))
+                    .then(([ok, o]) => ok ? o : Promise.reject(o))
                     .then(dto => new Result(dto))
             })
     }
