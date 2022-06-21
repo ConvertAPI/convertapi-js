@@ -15,7 +15,7 @@ You can get your free API secret at https://www.convertapi.com/a
 Run this line from console:
 
 ```sh
-npm i convertapi-js
+npm i convertapi-js@">=1.1.0"
 ```
 
 ## Usage
@@ -25,6 +25,7 @@ npm i convertapi-js
 You can get your secret at https://www.convertapi.com/a
 
 ```js
+import ConvertApi from 'convertapi-js'
 let convertApi = ConvertApi.auth({secret: '<YOUR_SECRET>'})
 ```
 
@@ -86,7 +87,6 @@ ConvertAPI is designed to make converting file super easy, the following snippet
 <head>
     <meta charset="UTF-8">
     <title>Conversion Example</title>
-    <script src="https://unpkg.com/convertapi-js/lib/convertapi.js"></script>
 </head>
 <body>
     <h1>ConvertAPI JavaScript library example</h1>
@@ -105,6 +105,7 @@ ConvertAPI is designed to make converting file super easy, the following snippet
 ```
 
 ```js
+import ConvertApi from 'convertapi-js'
 let convertApi = ConvertApi.auth({secret: '<YOUR_SECRET>'})
 let elResult = document.getElementById('result')
 let elResultLink = document.getElementById('resultLink')
