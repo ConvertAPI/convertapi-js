@@ -1,6 +1,6 @@
-import {IResultFileDto} from "./result";
-import {IFileValue, IParam, IParamDto} from "./param";
-import FileParam, {FileValue} from "./file-param";
+import {IResultFileDto} from "./result.js";
+import {IFileValue, IParam, IParamDto} from "./param.js";
+import FileParam, {FileValue} from "./file-param.js";
 
 export class FilesValue {
     constructor(

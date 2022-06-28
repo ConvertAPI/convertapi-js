@@ -1,5 +1,5 @@
-import {FileValue} from "./file-param";
-import {FilesValue} from "./files-param";
+import {FileValue} from "./file-param.js";
+import {FilesValue} from "./files-param.js";
 
 export interface IResultFileDto {
     FileName: string,
@@ -12,6 +12,11 @@ export interface IResultFileDto {
 export interface IResultDto {
     ConversionCost: number,
     Files: IResultFileDto[]
+}
+
+export interface IResultErrorDto {
+    Code: number,
+    Message: string
 }
 
 export default class Result {

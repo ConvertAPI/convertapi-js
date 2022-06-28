@@ -1,4 +1,5 @@
-import {IFileValue, IParam, IParamDto} from "./param";
+import {IFileValue, IParam, IParamDto} from "./param.js";
+import {IResultErrorDto} from "./result";
 
 export interface UploadResponseDto {
     FileId: string
@@ -35,7 +36,9 @@ export default class FileParam implements IParam {
             let response = this.file instanceof URL
                 ? fetch(`${uploadUrl}url=${this.file.href}`, <RequestInit>{ method: 'POST' })
                 : fetch(`${uploadUrl}filename=${this.file.name}`, <RequestInit>{ method: 'POST', body: this.file })
-            return response.then(r => <Promise<UploadResponseDto>>r.json()).then(obj => obj.FileId)
+            return response
+                .then(r => r.ok ? r.json() : Promise.reject(<IResultErrorDto>{Code: 5007, Message: `Unable to upload the file`}))
+                .then(obj => obj.FileId)
         }
     }
 

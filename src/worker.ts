@@ -5,8 +5,8 @@
  * @param params - Object that represents parameters passed to the worker. Value can be string or file(s).
  * @returns - Worker response object promise
  */
-import {IParamInit} from "./params";
-import {UploadResponseDto} from "./file-param";
+import {IParamInit} from "./params.js";
+import {UploadResponseDto} from "./file-param.js";
 
 export function worker(worker: URL, params: any | HTMLFormElement): Promise<Response> {
     let paramPros = params instanceof HTMLFormElement

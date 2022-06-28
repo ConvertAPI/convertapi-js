@@ -1,6 +1,6 @@
-import Param, {IConvertDto, IParam} from "./param";
-import FileParam, {FileValue} from "./file-param";
-import FilesParam, {FilesValue} from "./files-param";
+import Param, {IConvertDto, IParam} from "./param.js";
+import FileParam, {FileValue} from "./file-param.js";
+import FilesParam, {FilesValue} from "./files-param.js";
 
 export interface IParamInit {
     name: string

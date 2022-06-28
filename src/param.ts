@@ -33,8 +33,7 @@ export default class Param implements IParam {
     constructor(
         public readonly name: string,
         public readonly value: string,
-    ) {
-    }
+    ) {}
 
     public get dto(): Promise<IParamDto> {
         return Promise.resolve(<IParamDto>{

@@ -1,9 +1,8 @@
-import Params, {IParamInit} from "./params";
-import {IParams} from "./param";
-import Result from "./result";
+import Params, {IParamInit} from "./params.js";
+import {IParams} from "./param.js";
+import Result, {IResultErrorDto} from "./result.js";
 
-interface Credentials {
-    secret: string
+interface TokenCredentials {
     apiKey:  string
     token: string
 }
@@ -17,12 +16,12 @@ export default class ConvertApi {
      * @param host - ConvertApi server domain name
      * @returns - New ConvertApi object
      */
-    static auth(credentials: Credentials, host?: string): ConvertApi {
+    static auth(credentials: string | TokenCredentials, host?: string): ConvertApi {
         return new ConvertApi(credentials, host)
     }
 
     constructor(
-        public readonly credentials: Credentials,
+        public readonly credentials: string | TokenCredentials,
         public readonly host: string='v2.convertapi.com'
     ) {}
 
@@ -49,10 +48,10 @@ export default class ConvertApi {
                 let altConvParam = dto.Parameters.filter(p => p.Name.toLowerCase() == 'converter')
                 let converterPath = altConvParam?.length > 0 ? `/converter/${altConvParam[0].Value}` : ''                    
                 
-                let auth = this.credentials.secret ? `secret=${this.credentials.secret}` : `apikey=${this.credentials.apiKey}&token=${this.credentials.token}`
+                let auth = typeof this.credentials === 'string' ? `secret=${this.credentials}` : `apikey=${this.credentials.apiKey}&token=${this.credentials.token}`
                 return fetch(`https://${this.host}/convert/${fromFormat}/to/${toFormat}${converterPath}?${auth}&storefile=true`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(dto) })
                     .then(r => Promise.all([r.ok, r.json()]))
-                    .then(([ok, o]) => ok ? o : Promise.reject(o))
+                    .then(([ok, o]) => ok ? o : Promise.reject<IResultErrorDto>(o))
                     .then(dto => new Result(dto))
             })
     }
