@@ -10,6 +10,11 @@ In just few minutes you can integrate it into your application and use it easily
 The ConvertAPI-JS library makes it easier to use the Convert API from your web projects without having to build your own API calls.
 You can get your free API secret at https://www.convertapi.com/a
 
+## Try it online
+
+You can try how library works on **[CodeSandbox](https://codesandbox.io/u/convertapi)**
+
+
 ## Installation
 
 Run this line from console:
@@ -26,7 +31,7 @@ You can get your secret at https://www.convertapi.com/a
 
 ```js
 import ConvertApi from 'convertapi-js'
-let convertApi = ConvertApi.auth({secret: '<YOUR_SECRET>'})
+let convertApi = ConvertApi.auth('<YOUR_SECRET>')
 ```
 
 ### File conversion
@@ -72,70 +77,6 @@ let result = await convertApi.convert('pdf', 'jpg', params)
 // Get result file URL
 let url = result.files[0].Url
 ```
-
-### More examples
-
-You can find more advanced examples in the [examples](https://github.com/ConvertAPI/convertapi-js/tree/master/examples) folder.
-
-#### Converting your first file, full example:
-
-ConvertAPI is designed to make converting file super easy, the following snippet shows how easy it is to get started. Let's convert WORD DOCX file to PDF:
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Conversion Example</title>
-</head>
-<body>
-    <h1>ConvertAPI JavaScript library example</h1>
-    <h2>Conversion Example</h2>
-    <p>
-        <label for="fileInput">Select DOCX file to convert it to PDF</label>
-        <input id="fileInput" type="file" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document">
-    </p>
-    <p id="result">
-        Result file:
-        <a id="resultLink" href=""></a>
-    </p>
-    <script src="index.js"></script>
-</body>
-</html>
-```
-
-```js
-import ConvertApi from 'convertapi-js'
-let convertApi = ConvertApi.auth({secret: '<YOUR_SECRET>'})
-let elResult = document.getElementById('result')
-let elResultLink = document.getElementById('resultLink')
-elResult.style.display = 'none'
-
-// On file input change, start conversion
-document.getElementById('fileInput').addEventListener('change', async e => {
-    elResult.style.display = 'none'
-    document.documentElement.style.cursor = 'wait'
-    try {
-
-        // Converting DOCX to PDF file
-        let params = convertApi.createParams()
-        params.add('file', e.currentTarget.files[0])
-        let result = await convertApi.convert('docx', 'pdf', params)
-
-        // Showing link with the result file
-        elResultLink.setAttribute('href', result.files[0].Url)
-        elResultLink.innerText = result.files[0].Url
-        elResult.style.display = 'block'
-
-    } finally {
-        document.documentElement.style.cursor = 'default'
-    }
-})
-```
-
-
-This is the bare-minimum to convert a file using the ConvertAPI client, but you can do a great deal more with the ConvertAPI JS library.
-Take special note that you should replace `<YOUR_SECRET>` with the secret you obtained in item two of the pre-requisites.
 
 ### Issues &amp; Comments
 Please leave all comments, bugs, requests, and issues on the Issues page.
