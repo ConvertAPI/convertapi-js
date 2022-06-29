@@ -23,12 +23,6 @@ Run this line from console:
 npm i convertapi-js@">=1.1.0"
 ```
 
-Or import from the CDN:
-
-```html
-<script src="https://unpkg.com/convertapi-js/lib/convertapi.js"></script>
-```
-
 ## Usage
 
 ### Configuration
