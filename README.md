@@ -10,9 +10,18 @@ In just few minutes you can integrate it into your application and use it easily
 The ConvertAPI-JS library makes it easier to use the Convert API from your web projects without having to build your own API calls.
 You can get your free API secret at https://www.convertapi.com/a
 
+If you are interested in our old version of **non-module** JavaScript library you can [find it here](https://github.com/ConvertAPI/convertapi-js/tree/last_nonmodule).
+
 ## Try it online
 
-You can try how library works on **[CodeSandbox](https://codesandbox.io/u/convertapi)**
+You can try this library on **[CodeSandbox](https://codesandbox.io/u/convertapi)**
+
+- [Simple Conversion](https://codesandbox.io/s/pzvhkl)
+- [Conversion with additional parameters](https://codesandbox.io/s/hlvnul)
+- [Conversion Chaining](https://codesandbox.io/s/ju8dg5)
+- [Web Page Conversion](https://codesandbox.io/s/ct44tv)
+- [Convert HTML string to PDF](https://codesandbox.io/s/g1ciy)
+- [All examples](https://codesandbox.io/u/convertapi)
 
 
 ## Installation
@@ -20,7 +29,7 @@ You can try how library works on **[CodeSandbox](https://codesandbox.io/u/conver
 Run this line from console:
 
 ```sh
-npm i convertapi-js@">=1.1.0"
+npm i convertapi-js@~1.1
 ```
 
 ## Usage
