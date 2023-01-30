@@ -40,7 +40,7 @@ You can get your secret at https://www.convertapi.com/a
 
 ```js
 import ConvertApi from 'convertapi-js'
-let convertApi = ConvertApi.auth('<YOUR_SECRET>')
+let convertApi = ConvertApi.auth('your-api-secret')
 ```
 
 ### File conversion
