@@ -72,7 +72,7 @@ let url = result.files[0].Url
 #### Additional conversion parameters
 
 ConvertAPI accepts extra conversion parameters depending on converted formats. All conversion 
-parameters and explanations can be found [here](https://www.convertapi.com).
+parameters and explanations can be found [here](https://www.convertapi.com/conversions).
 
 ```js
 // Converting PDF to JPG file
