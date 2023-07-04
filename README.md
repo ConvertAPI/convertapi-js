@@ -88,6 +88,15 @@ let result = await convertApi.convert('pdf', 'jpg', params)
 let url = result.files[0].Url
 ```
 
+### Alternative domain
+
+Set the last argument for the `ConvertApi.auth` method to use an alternative domain. Dedicated to the region [domain list](https://www.convertapi.com/doc/servers-location).
+
+```js
+let convertApi = ConvertApi.auth(secret, 'https://eu-v2.convertapi.com/')
+```
+
+
 ### Issues &amp; Comments
 Please leave all comments, bugs, requests, and issues on the Issues page.
 We'll respond to your request ASAP!
