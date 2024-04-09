@@ -42,6 +42,8 @@ You can get your secret at https://www.convertapi.com/a
 ```js
 import ConvertApi from 'convertapi-js'
 let convertApi = ConvertApi.auth('your-api-secret')
+// or authentication using token
+let convertApi = ConvertApi.auth({token: 'your-token', apiKey: 'your-api-key'})
 ```
 
 ### File conversion
