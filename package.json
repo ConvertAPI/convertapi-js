@@ -6,7 +6,7 @@
   "type": "module",
   "dependencies": {},
   "devDependencies": {
-    "typescript": "~4.7.4"
+    "typescript": "~5.5.4"
   },
   "publishConfig": {
     "access": "public"
