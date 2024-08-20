@@ -45,7 +45,7 @@ export default class ConvertApi {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',
-                            Authorization: `Bearer ${this.authCredentials}`
+                            'authorization': `Bearer ${this.authCredentials}`
                         },
                         body: JSON.stringify(dto)
                     }
