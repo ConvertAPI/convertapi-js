@@ -17,7 +17,7 @@ export default class ConvertApi {
 
     constructor(
         public readonly authCredentials: string,
-        public readonly host: string='v2.convertapi.com'
+        public readonly host: string='api.convertapi.io'
     ) {}
 
     /**
@@ -40,7 +40,7 @@ export default class ConvertApi {
     public convert(fromFormat: string, toFormat: string, params: IParams): Promise<Result> {
         return Promise.resolve(params.dto)
             .then(dto => {
-                return fetch(`https://${this.host}/convert/${fromFormat}/to/${toFormat}?storefile=true`,
+                return fetch(`https://${this.host}/v3/convert/${fromFormat}/to/${toFormat}?storefile=true`,
                 {
                         method: 'POST',
                         headers: {

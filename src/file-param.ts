@@ -32,7 +32,7 @@ export default class FileParam implements IParam {
         if (this.file instanceof FileValue) {
             return Promise.resolve(this.file.fileId)
         } else {
-            let uploadUrl = `https://${this.host}/upload?`
+            let uploadUrl = `https://${this.host}/v3/upload?`
             let response = this.file instanceof URL
                 ? fetch(`${uploadUrl}url=${encodeURIComponent(this.file.href)}`, <RequestInit>{ method: 'POST' })
                 : fetch(`${uploadUrl}filename=${encodeURIComponent(this.file.name)}`, <RequestInit>{ method: 'POST', body: this.file })
